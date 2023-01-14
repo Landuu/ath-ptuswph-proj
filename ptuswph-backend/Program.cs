@@ -1,9 +1,12 @@
+using ptuswph_backend;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<ApiContext>();   
 
 var app = builder.Build();
 
