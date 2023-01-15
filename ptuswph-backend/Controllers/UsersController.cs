@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ptuswph_backend.Database;
 using ptuswph_backend.Models;
 
 namespace ptuswph_backend.Controllers

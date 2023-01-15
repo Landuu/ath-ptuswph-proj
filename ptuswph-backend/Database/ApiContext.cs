@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ptuswph_backend.Models;
+using System.Diagnostics;
+using System.Text.Json;
 
-namespace ptuswph_backend
+namespace ptuswph_backend.Database
 {
     public class ApiContext : DbContext
     {
@@ -18,5 +20,6 @@ namespace ptuswph_backend
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Movie> Movies { get; set; }
     }
 }
