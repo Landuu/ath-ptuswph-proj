@@ -1,8 +1,14 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import path from 'path';
+import type { UserConfig } from 'vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
+const config: UserConfig = {
 	plugins: [sveltekit()],
+	resolve: {
+		alias: {
+			'@' : path.resolve(__dirname, './src')
+		}
+	},
 	server: {
 		proxy: {
 			'/api': {

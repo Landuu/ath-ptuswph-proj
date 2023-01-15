@@ -1,5 +1,5 @@
-<script>
-    import { page } from '$app/stores';
-  </script>
+<script lang="ts">
+  import { page } from '$app/stores';
+</script>
   
-ERROR: {$page.status}: {$page.error.message}
+<b>ERROR {$page.status}:</b> {$page.error?.message}

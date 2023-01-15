@@ -17,7 +17,7 @@ namespace ptuswph_backend.Controllers
             _jwtSettings = configuration.GetSection("JWT").Get<JWTSettings>();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IResult Post()
         {
             if (_jwtSettings == null) return Results.BadRequest();

@@ -1,5 +1,6 @@
 ## MOJE
 ptuswph-backend/wwwroot
+!ptuswph-backend/wwwroot/.gitkeep
 ptuswph-backend/SQLite.db
 
 
