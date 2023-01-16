@@ -23,5 +23,7 @@ namespace ptuswph_backend.Models
 
         [JsonPropertyName("img")]
         public string Img { get; set; }
+
+        public decimal Price { get; set; }
     }
 }

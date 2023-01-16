@@ -6,7 +6,8 @@ export type ApiMovie = {
     category: string,
     description: string,
     rating: string,
-    img: string
+    img: string,
+    price: number
 }
 
 export type LoggedUser = {

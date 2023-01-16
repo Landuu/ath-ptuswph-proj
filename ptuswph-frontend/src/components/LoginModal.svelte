@@ -2,13 +2,13 @@
     import { showLoginModal, loggedUser } from "@/stores";
     import type { LoggedUser } from "@/types";
     import { getAuthToken } from "@/utils";
+    import store from "store2";
 
     let inputLogin: string;
     let inputPassword: string;
 
     const closeModal = () => {
         showLoginModal.set(false);
-        console.log(showLoginModal);
     }
 
     const sendCredentials = async () => {
@@ -35,6 +35,7 @@
         }
 
         const userdata: LoggedUser = await res.json();
+        store.session.set('loggedUser', userdata);
         loggedUser.set(userdata);
         closeModal();
     }

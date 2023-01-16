@@ -3,3 +3,4 @@ import type { LoggedUser } from './types';
 
 export const showLoginModal = writable(false);
 export const loggedUser = writable<null | LoggedUser>(null);
+export const loggedUserBalance = writable<null | number>(null);

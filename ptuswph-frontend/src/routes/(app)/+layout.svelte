@@ -1,14 +1,18 @@
 <script>
     import "@/app.postcss";
+    import Icon from "@/components/Icon.svelte";
     import LoginModal from "@/components/LoginModal.svelte";
+    import UserNav from "@/components/UserNav.svelte";
     import {loggedUser, showLoginModal} from '@/stores';
     import { redirect } from '@sveltejs/kit';
+    import store from "store2";
     
     const showLogin = () => {
         showLoginModal.set(true);
     }
 
     const logout = () => {
+        store.session.remove('loggedUser');
         loggedUser.set(null);
         redirect(302, '/');
     }
@@ -18,7 +22,7 @@
     <div class="navbar">
         <div class="flex items-center">
             <a href="/" class="home-button">
-                <i class='bx bx-home'></i>
+                <Icon className="bi-house" />
             </a>
             <div class="text-2xl font-bold text-indigo-400">
                 FILMEX
@@ -26,15 +30,10 @@
         </div>
         <div class="flex items-center">
             {#if $loggedUser}
+
+
                 <div>
-                    <a href="/" class="user-button mr-1">
-                        <i class='bx bx-wallet mr-1'></i>
-                        100.93 PLN
-                    </a>
-                    <a href="/" class="user-button mr-4">
-                        <i class='bx bxs-user mr-1'></i>
-                        {$loggedUser.login}
-                    </a>
+                    <UserNav />
                     <button class="action-button" on:click={logout}>
                         Wyloguj
                     </button>
@@ -62,7 +61,7 @@
     }
 
     .home-button {
-        @apply mr-3 p-2.5 rounded text-lg bg-gray-700 flex items-center shadow;
+        @apply mr-3 py-2 px-3 text-xl bg-gray-700 flex items-center shadow;
         @apply hover:bg-gray-600;
     }
 

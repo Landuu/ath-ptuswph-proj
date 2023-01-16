@@ -11,5 +11,7 @@ namespace ptuswph_backend.Models
 
         [JsonPropertyName("password")]
         public string Password { get; set; }
+
+        public decimal Wallet { get; set; } = 0;
     }
 }

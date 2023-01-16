@@ -1,7 +1,9 @@
-import { PUBLIC_TOKEN } from '$env/static/public';
+import store from 'store2';
+import type { LoggedUser } from './types';
 
 
 export const getAuthOptions = () => {
+	
     const fetchOptions: RequestInit = {
 		headers: getAuthHeaders()
 	}
@@ -10,11 +12,12 @@ export const getAuthOptions = () => {
 
 export const getAuthHeaders = () => {
 	const fetchHeaders: HeadersInit = {
-		'Authorization': PUBLIC_TOKEN
+		'Authorization': getAuthToken()
 	};
 	return fetchHeaders;
 }
 
 export const getAuthToken = () => {
-	return PUBLIC_TOKEN;
+	const userdata: LoggedUser = store.session.get('loggedUser');
+	return userdata?.token;
 }

@@ -65,7 +65,8 @@ namespace ptuswph_backend.Controllers
 
             var claims = new Claim[]
             {
-                new(JwtRegisteredClaimNames.Name, user.Login),
+                new("login", user.Login),
+                new("uid", user.Id.ToString()),
                 new(ClaimTypes.Role, "user")
             };
 

@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.JsonWebTokens;
 using ptuswph_backend.Database;
 using ptuswph_backend.Models;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace ptuswph_backend.Controllers
 {
@@ -24,6 +27,23 @@ namespace ptuswph_backend.Controllers
         {
             var users = await _context.Users.ToListAsync();
             return Results.Json(users);
+        }
+
+        [Authorize]
+        [HttpGet("Wallet")]
+        public async Task<IResult> GetWallet()
+        {
+            ClaimsIdentity? id = (ClaimsIdentity?) User.Identity;
+            if (id == null) return Results.BadRequest();
+            
+            string? idClaim = id.Claims.FirstOrDefault(x => x.Type == "uid")?.Value;
+            if(idClaim == null) return Results.BadRequest();
+            
+            int userId =  Convert.ToInt32(idClaim);
+            User? user = await _context.Users.FindAsync(userId);
+            if(user == null) return Results.BadRequest();
+
+            return Results.Text(user.Wallet.ToString());
         }
 
         [HttpPost]

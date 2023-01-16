@@ -73,8 +73,16 @@ if(!context.Movies.Any())
 {
     string jsonText = File.ReadAllText("Database/movies.json");
     Movie[]? movies = JsonSerializer.Deserialize<Movie[]>(jsonText);
+    
     if(movies != null)
     {
+        foreach (var movie in movies)
+        {
+            int releaseYear = Convert.ToInt32(movie.Release[^4..]);
+            if (releaseYear > 2022) movie.Price = 39.99M;
+            else if (releaseYear > 2015) movie.Price = 29.99M;
+            else movie.Price = 19.99M;
+        }
         context.Movies.AddRange(movies);
         context.SaveChanges();
     }

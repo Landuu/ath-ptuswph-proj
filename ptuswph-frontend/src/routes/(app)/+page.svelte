@@ -4,7 +4,6 @@
     export let data: {data: ApiMovie[]};
 
     const movies = data.data;
-    console.log(movies);
 </script>
 
 
