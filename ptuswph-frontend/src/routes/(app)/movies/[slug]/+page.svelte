@@ -2,10 +2,27 @@
     import Icon from "@/components/Icon.svelte";
     import { loggedUser, loggedUserBalance } from "@/stores";
     import type { ApiMovie } from "@/types";
+    import { page } from '$app/stores';
+    import { getAuthToken, refreshBalance } from "@/utils";
+    import { invalidate } from "$app/navigation";
 
-    export let data: { movie: ApiMovie };
+    export let data: { movie: ApiMovie, owned: boolean };
 
-    let canBuy = !($loggedUserBalance != null && $loggedUserBalance - data.movie.price >= 0);
+    let canBuy: boolean;
+    $: canBuy = !($loggedUserBalance != null && $loggedUserBalance - data.movie.price >= 0);
+
+    const buyMovie = async () => {
+        const uri = `/api/movies/${$page.params.slug}/buy`;
+        const res = await fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Authorization': getAuthToken()
+            }
+        });
+        if(res.status != 200) return;
+        invalidate('user:wallet');
+        data.owned = true;
+    }
 </script>
 
 
@@ -18,13 +35,21 @@
         <div>
             <div class="flex">
                 <div class="pricetag">
-                    {data.movie.price}zł
+                    {data.movie.price} zł
                 </div>
                 {#if $loggedUser}
-                    <button class='buy-button' disabled={canBuy}>
-                        <Icon className="bi-cart mr-1"/>
-                        Wykup dostęp
-                    </button>
+                    {#if data.owned}
+                        <button class='owned-button' on:click={buyMovie} disabled>
+                            <Icon className="bi-check2 mr-1"/>
+                            Posiadany
+                        </button>
+                    {:else}
+                        <button class='buy-button' on:click={buyMovie} disabled={canBuy}>
+                            <Icon className="bi-cart mr-1"/>
+                            Wykup dostęp
+                        </button>
+                    {/if}
+                    
                 {:else}
                     <button class='buy-button' disabled>
                         <Icon className="bi-cart mr-1" />
@@ -60,6 +85,10 @@
 
     .buy-button:disabled {
         @apply bg-gray-500;
+    }
+
+    .owned-button {
+        @apply py-2 px-5 bg-green-700 shadow;
     }
 
     .pricetag {

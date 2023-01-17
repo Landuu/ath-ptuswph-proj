@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { invalidate } from "$app/navigation";
     import { showLoginModal, loggedUser } from "@/stores";
     import type { LoggedUser } from "@/types";
     import { getAuthToken } from "@/utils";
+    import { redirect } from "@sveltejs/kit";
     import store from "store2";
 
     let inputLogin: string;
@@ -37,6 +39,7 @@
         const userdata: LoggedUser = await res.json();
         store.session.set('loggedUser', userdata);
         loggedUser.set(userdata);
+        invalidate('user:wallet');
         closeModal();
     }
 </script>

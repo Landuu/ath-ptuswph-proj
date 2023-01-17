@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using ptuswph_backend.Database;
 using ptuswph_backend.Models;
+using ptuswph_backend.Utils;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -29,23 +30,6 @@ namespace ptuswph_backend.Controllers
             return Results.Json(users);
         }
 
-        [Authorize]
-        [HttpGet("Wallet")]
-        public async Task<IResult> GetWallet()
-        {
-            ClaimsIdentity? id = (ClaimsIdentity?) User.Identity;
-            if (id == null) return Results.BadRequest();
-            
-            string? idClaim = id.Claims.FirstOrDefault(x => x.Type == "uid")?.Value;
-            if(idClaim == null) return Results.BadRequest();
-            
-            int userId =  Convert.ToInt32(idClaim);
-            User? user = await _context.Users.FindAsync(userId);
-            if(user == null) return Results.BadRequest();
-
-            return Results.Text(user.Wallet.ToString());
-        }
-
         [HttpPost]
         public async Task<IResult> Post(string login, string password)
         {
@@ -57,6 +41,19 @@ namespace ptuswph_backend.Controllers
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return Results.Ok();
+        }
+
+        [Authorize]
+        [HttpGet("Wallet")]
+        public async Task<IResult> GetWallet()
+        {
+            int? userId = User.Identity?.GetUid();
+            if (userId == null) return Results.BadRequest();
+
+            User? user = await _context.Users.FindAsync(userId);
+            if (user == null) return Results.BadRequest();
+
+            return Results.Text(user.Wallet.ToString());
         }
     }
 }

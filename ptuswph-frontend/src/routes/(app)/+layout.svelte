@@ -1,20 +1,12 @@
-<script>
+<script lang="ts">
     import "@/app.postcss";
     import Icon from "@/components/Icon.svelte";
     import LoginModal from "@/components/LoginModal.svelte";
     import UserNav from "@/components/UserNav.svelte";
-    import {loggedUser, showLoginModal} from '@/stores';
-    import { redirect } from '@sveltejs/kit';
-    import store from "store2";
+    import { loggedUser, showLoginModal } from '@/stores';
     
     const showLogin = () => {
         showLoginModal.set(true);
-    }
-
-    const logout = () => {
-        store.session.remove('loggedUser');
-        loggedUser.set(null);
-        redirect(302, '/');
     }
 </script>
 
@@ -30,13 +22,8 @@
         </div>
         <div class="flex items-center">
             {#if $loggedUser}
-
-
-                <div>
+                <div class="flex">
                     <UserNav />
-                    <button class="action-button" on:click={logout}>
-                        Wyloguj
-                    </button>
                 </div>
             {:else}
                 <button class="action-button" on:click={showLogin}>
@@ -52,7 +39,10 @@
     <LoginModal />
 {/if}
 
+
 <slot />
+
+
 
 <style lang="postcss">
     .navbar {
@@ -68,10 +58,5 @@
     .action-button {
         @apply px-5 py-1.5 bg-indigo-700 shadow;
         @apply hover:bg-indigo-800;
-    }
-
-    .user-button {
-        @apply px-5 py-1.5 bg-gray-700 shadow;
-        @apply hover:bg-gray-600;
     }
 </style>

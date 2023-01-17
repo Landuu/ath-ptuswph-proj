@@ -13,5 +13,7 @@ namespace ptuswph_backend.Models
         public string Password { get; set; }
 
         public decimal Wallet { get; set; } = 0;
+
+        public List<UserMovie> UserMovies { get; set; }
     }
 }

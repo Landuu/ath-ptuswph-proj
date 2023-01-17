@@ -21,5 +21,6 @@ namespace ptuswph_backend.Database
 
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<UserMovie> UserMovies { get; set; }
     }
 }

@@ -1,27 +1,25 @@
 import store from 'store2';
 import type { LoggedUser } from "@/types";
 import { loggedUser, loggedUserBalance } from "@/stores";
-import { getAuthOptions } from "@/utils";
+import { getAuthOptions, refreshBalance } from "@/utils";
 import type { PageLoad } from './$types';
 
 
-export const load = (async ({fetch}) => {
-	loggedUser.subscribe(async (value) => {
-		if(value == null) {
-			const userdata: LoggedUser = store.session.get('loggedUser');
-			if(userdata) {
-				loggedUser.set(userdata);
-			}
-		}
-		if(value != null) {
-			const res = await fetch('/api/users/wallet', getAuthOptions());
-			if(res.status != 200) return;
-			const balance = await res.text();
-			const balanceNumber = Number(balance.replace(',', '.'));
-			loggedUserBalance.set(balanceNumber);
-		}
-	});
+export const load: any = (async ({fetch, depends}) => {
+	depends('user:wallet');
 
+	let isLogged = false;
+	loggedUser.subscribe(user => {
+		if(user) isLogged = true;
+	});
+	
+	if(isLogged) {
+		const res = await fetch('/api/users/wallet', getAuthOptions());
+		if(res.status != 200) return;
+		const balance = await res.text();
+		const balanceNumber = Number(balance.replace(',', '.'));
+		loggedUserBalance.set(balanceNumber);
+	}
 
 	return { };
 }) satisfies PageLoad;
