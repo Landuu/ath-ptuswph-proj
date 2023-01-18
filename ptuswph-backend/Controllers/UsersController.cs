@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.JsonWebTokens;
 using ptuswph_backend.Database;
 using ptuswph_backend.Models;
+using ptuswph_backend.Models.Dto;
 using ptuswph_backend.Utils;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -47,13 +48,70 @@ namespace ptuswph_backend.Controllers
         [HttpGet("Wallet")]
         public async Task<IResult> GetWallet()
         {
-            int? userId = User.Identity?.GetUid();
-            if (userId == null) return Results.BadRequest();
-
-            User? user = await _context.Users.FindAsync(userId);
+            User? user = await GetUserFromIdentity(User.Identity);
             if (user == null) return Results.BadRequest();
 
             return Results.Text(user.Wallet.ToString());
+        }
+
+        [Authorize]
+        [HttpPost("Wallet")]
+        public async Task<IResult> PostWallet([FromBody] WalletDepositDto dto)
+        {
+            User? user = await GetUserFromIdentity(User.Identity);
+            if (user == null) return Results.BadRequest();
+
+            user.Wallet += dto.Ammount;
+            WalletTransaction transaction = new()
+            {
+                UserId = user.Id,
+                Ammount = dto.Ammount,
+                BalanceAfter = user.Wallet,
+                Description = "Wp³ata œrodków do portfela"
+            };
+            await _context.WalletTransactions.AddAsync(transaction);
+            await _context.SaveChangesAsync();
+            
+            return Results.Ok();
+        }
+
+        [Authorize]
+        [HttpGet("Transactions")]
+        public async Task<IResult> GetTransactions()
+        {
+            User? user = await GetUserFromIdentity(User.Identity);
+            if (user == null) return Results.BadRequest();
+
+            List<WalletTransaction> transactions = await _context.WalletTransactions
+                .Where(x => x.UserId == user.Id)
+                .ToListAsync();
+
+            return Results.Json(transactions);
+        }
+
+        [Authorize]
+        [HttpPost("Wallet/Reset")]
+        public async Task<IResult> ResetWallet()
+        {
+            User? user = await GetUserFromIdentity(User.Identity);
+            if (user == null) return Results.BadRequest();
+
+            user.Wallet = 0;
+            await _context.WalletTransactions.Where(x => x.UserId == user.Id).ExecuteDeleteAsync();
+            await _context.SaveChangesAsync();
+
+            return Results.Ok();
+        }
+
+
+
+
+
+        private async Task<User?> GetUserFromIdentity(IIdentity? identity)
+        {
+            if (identity == null) return null;
+            int? userId = identity.GetUid();
+            return await _context.Users.FindAsync(userId);
         }
     }
 }

@@ -10,6 +10,14 @@ export type ApiMovie = {
     price: number
 }
 
+export type ApiTransaction = {
+    id: number,
+    userId: number,
+    ammount: number,
+    balanceAfter: number,
+    description: string
+}
+
 export type LoggedUser = {
     id: number,
     login: string,

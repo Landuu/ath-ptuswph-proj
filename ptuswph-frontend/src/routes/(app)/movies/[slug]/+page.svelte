@@ -49,7 +49,6 @@
                             Wykup dostęp
                         </button>
                     {/if}
-                    
                 {:else}
                     <button class='buy-button' disabled>
                         <Icon className="bi-cart mr-1" />

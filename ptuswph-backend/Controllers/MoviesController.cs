@@ -54,8 +54,16 @@ namespace ptuswph_backend.Controllers
 
             user.Wallet = walletPurchase;
             await _context.UserMovies.AddAsync(new() { UserId = user.Id, MovieId = movie.Id });
-            
+            WalletTransaction transaction = new()
+            {
+                UserId = user.Id,
+                Ammount = 0 - movie.Price,
+                BalanceAfter = walletPurchase,
+                Description = $"Zakup filmu \"{movie.Title}\""
+            };
+            await _context.WalletTransactions.AddAsync(transaction);
             await _context.SaveChangesAsync();
+            
             return Results.Ok();
         }
 

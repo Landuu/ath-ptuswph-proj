@@ -27,11 +27,11 @@
         {$loggedUserBalance?.toFixed(2)} zł
     </button>
     <div class="dropdown-content {walletDropdown ? "show" : ""}">
-        <a class="drop-item" href="#">
+        <a class="drop-item" href="/deposit">
             <Icon className="bi-plus-circle mr-2" />
             Wpłać
         </a>
-        <a class="drop-item" href="#">
+        <a class="drop-item" href="/transactions">
             <Icon className="bi-list-columns-reverse mr-2" />
             Historia transakcji
         </a>
