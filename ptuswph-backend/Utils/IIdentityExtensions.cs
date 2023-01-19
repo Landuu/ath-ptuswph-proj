@@ -1,4 +1,7 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.EntityFrameworkCore;
+using ptuswph_backend.Database;
+using ptuswph_backend.Models;
+using System.Security.Claims;
 using System.Security.Principal;
 
 namespace ptuswph_backend.Utils
@@ -17,6 +20,12 @@ namespace ptuswph_backend.Utils
             string? uid = identity.GetClaimValue("uid");
             if (uid == null) return null;
             return Convert.ToInt32(uid);
+        }
+
+        public static User? GetUser(this IIdentity identity, ApiContext context) {
+            if (identity == null) return null;
+            int? userId = identity.GetUid();
+            return context.Users.Find(userId);
         }
     }
 }

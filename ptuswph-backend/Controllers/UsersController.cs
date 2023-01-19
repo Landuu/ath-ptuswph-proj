@@ -7,6 +7,7 @@ using ptuswph_backend.Database;
 using ptuswph_backend.Models;
 using ptuswph_backend.Models.Dto;
 using ptuswph_backend.Utils;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -46,9 +47,9 @@ namespace ptuswph_backend.Controllers
 
         [Authorize]
         [HttpGet("Wallet")]
-        public async Task<IResult> GetWallet()
+        public IResult GetWallet()
         {
-            User? user = await GetUserFromIdentity(User.Identity);
+            User? user = User.Identity?.GetUser(_context);
             if (user == null) return Results.BadRequest();
 
             return Results.Text(user.Wallet.ToString());
@@ -58,7 +59,7 @@ namespace ptuswph_backend.Controllers
         [HttpPost("Wallet")]
         public async Task<IResult> PostWallet([FromBody] WalletDepositDto dto)
         {
-            User? user = await GetUserFromIdentity(User.Identity);
+            User? user = User.Identity?.GetUser(_context);
             if (user == null) return Results.BadRequest();
 
             user.Wallet += dto.Ammount;
@@ -79,7 +80,7 @@ namespace ptuswph_backend.Controllers
         [HttpGet("Transactions")]
         public async Task<IResult> GetTransactions()
         {
-            User? user = await GetUserFromIdentity(User.Identity);
+            User? user = User.Identity?.GetUser(_context);
             if (user == null) return Results.BadRequest();
 
             List<WalletTransaction> transactions = await _context.WalletTransactions
@@ -90,10 +91,10 @@ namespace ptuswph_backend.Controllers
         }
 
         [Authorize]
-        [HttpPost("Wallet/Reset")]
+        [HttpDelete("Wallet/Reset")]
         public async Task<IResult> ResetWallet()
         {
-            User? user = await GetUserFromIdentity(User.Identity);
+            User? user = User.Identity?.GetUser(_context);
             if (user == null) return Results.BadRequest();
 
             user.Wallet = 0;
@@ -103,15 +104,32 @@ namespace ptuswph_backend.Controllers
             return Results.Ok();
         }
 
-
-
-
-
-        private async Task<User?> GetUserFromIdentity(IIdentity? identity)
+        [Authorize]
+        [HttpGet("Movies")]
+        public async Task<IResult> GetMovies()
         {
-            if (identity == null) return null;
-            int? userId = identity.GetUid();
-            return await _context.Users.FindAsync(userId);
+            User? user = User.Identity?.GetUser(_context);
+            if (user == null) return Results.BadRequest();
+
+            List<Movie> userMovies = await _context.UserMovies
+                .Include(x => x.Movie)
+                .Where(x => x.UserId == user.Id)
+                .Select(x => x.Movie)
+                .ToListAsync();
+
+            return Results.Json(userMovies);
         }
+
+        [Authorize]
+        [HttpDelete("Movies/Reset")]
+        public async Task<IResult> ResetMovies()
+        {
+            User? user = User.Identity?.GetUser(_context);
+            if (user == null) return Results.BadRequest();
+
+            await _context.UserMovies.Where(x => x.UserId == user.Id).ExecuteDeleteAsync();
+            return Results.Ok();
+        }
+
     }
 }

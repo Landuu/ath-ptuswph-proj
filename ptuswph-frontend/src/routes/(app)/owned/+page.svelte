@@ -1,33 +1,48 @@
+
 <script lang="ts">
     import { invalidate } from "$app/navigation";
-    import type { ApiTransaction } from "@/types";
-    import { getAuthHeaders } from "@/utils";
+    import type { ApiMovie } from "@/types";
+    import { getAuthHeaders, getAuthOptions, getAuthToken } from "@/utils";
+    import { saveAs } from 'file-saver';
 
-    export let data: { transactions: ApiTransaction[]};
+    export let data: { movies: ApiMovie[]};
 
-    const resetWallet = async () => {
-        const confirmed = confirm('Czy na pewno chcesz zresetować portfel/transakcje?');
+    const resetOwned = async () => {
+        const confirmed = confirm('Czy na pewno chcesz zresetować posiadane filmy?');
         if(!confirmed) return;
 
-        const res = await fetch('/api/users/wallet/reset', {
+        const res = await fetch('/api/users/movies/reset', {
             method: 'DELETE',
             headers: getAuthHeaders()
-        })
-        
-        if(res.status != 200) {
-            alert('Błąd podczas resetowania!');
+        });
+        if(!res.ok) {
+            alert('Błąd resetowania filmów');
+            console.log(res);
             return;
         }
-        invalidate('user:wallet');
-        invalidate('user:transactions');
+
+        invalidate('user:owned');
+    }
+
+    const downloadMovie = async (movie: ApiMovie) => {
+        const url = `/api/jd/${movie.id}/downloadesaease`;
+        const res = await fetch(url, getAuthOptions());
+        console.log('r', res);
+        if(!res.ok) {
+            alert('Błąd pobierania filmu');
+            console.log(res);
+            return;
+        }
+        const file = await res.blob();
+        const fileName = movie.title + '123.jpg';
+        saveAs(file, fileName);
     }
 </script>
 
-
 <div class="px-20 mb-20">
     <div class="flex justify-between">
-        <h1 class="text-2xl font-light">HISTORIA TRANSAKCJI</h1>
-        <button class="reset-button" on:click={resetWallet}>Reset portfela i transakcji</button>
+        <h1 class="text-2xl font-light">POSIADANE FILMY</h1>
+        <button class="reset-button" on:click={resetOwned}>Reset posiadanych filmów</button>
     </div>
 
     <div class="mt-10">
@@ -35,34 +50,36 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col">
-                        Opis transakcji
+                        Nazwa filmu
                     </th>
                     <th scope="col">
-                        Kwota transakcji
+                        Data wydania
                     </th>
                     <th scope="col">
-                        Balans po transakcji
+                        Dostęp
                     </th>
                 </tr>
             </thead>
             <tbody>
-                {#if data.transactions.length == 0}
+                {#if data.movies.length == 0}
                     <tr>
                         <th>-</th>
                         <td>-</td>
                         <td>-</td>
                     </tr>
                 {/if}
-                {#each data.transactions as transaction}
+                {#each data.movies as movie}
                     <tr>
                         <th scope="row">
-                            {transaction.description}
+                            {movie.title}
                         </th>
                         <td>
-                            <span class="{transaction.ammount > 0 ? 'pos' : 'neg'}">{transaction.ammount > 0 ? "+" + transaction.ammount : transaction.ammount} zł</span> 
+                            {movie.release}
                         </td>
                         <td>
-                            {transaction.balanceAfter} zł
+                            <button class='download-button' on:click={() => downloadMovie(movie)}>
+                                Pobierz
+                            </button>
                         </td>
                     </tr>
                 {/each}
@@ -70,6 +87,8 @@
         </table>
     </div>
 </div>
+
+
 
 
 <style lang="postcss">
@@ -90,15 +109,12 @@
     }
 
     table > tbody > tr > td {
-        @apply px-6 py-4;
+        @apply px-6 py-3;
     }
 
-    .pos {
-        @apply text-green-400;
-    }
-
-    .neg {
-        @apply text-red-400;
+    .download-button {
+        @apply bg-indigo-700 py-2 px-8 select-none text-white;
+        @apply hover:bg-indigo-800;
     }
 
     .reset-button {

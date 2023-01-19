@@ -13,10 +13,12 @@ namespace ptuswph_backend.Controllers
     public class MoviesController : ControllerBase
     {
         private readonly ApiContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public MoviesController(ApiContext context)
+        public MoviesController(ApiContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -71,7 +73,7 @@ namespace ptuswph_backend.Controllers
         [HttpGet("{id}/Owned")]
         public async Task<IResult> IsOwnedMovie(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
+            var movie = await _context.Movies.FindAsync(id); 
             if (movie == null) return Results.BadRequest();
 
             int? uid = User.Identity?.GetUid();
@@ -81,6 +83,25 @@ namespace ptuswph_backend.Controllers
 
             bool isOwned = await _context.UserMovies.AnyAsync(x => x.UserId == user.Id && x.MovieId == movie.Id);
             return Results.Text(isOwned.ToString());
+        }
+
+
+        [Authorize]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
+        [HttpGet("{id}/Downloade")]
+        public async Task<IResult> Download(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null) return Results.BadRequest();
+
+            User? user = User.Identity?.GetUser(_context);
+            if (user == null) return Results.BadRequest();
+
+            bool isOwned = await _context.UserMovies.AnyAsync(x => x.UserId == user.Id && x.MovieId == movie.Id);
+            if (!isOwned) return Results.BadRequest();
+
+            string path = _environment.ContentRootPath + $"/database/movies/{movie.Img}";
+            return Results.File(path, fileDownloadName: movie.Title + ".jpg");
         }
     }
 }

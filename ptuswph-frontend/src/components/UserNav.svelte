@@ -43,7 +43,7 @@
         {$loggedUser?.login}
     </button>
     <div class="dropdown-content {userDropdown ? "show" : ""}">
-        <a class="drop-item" href="#">
+        <a class="drop-item" href="/owned">
             <Icon className="bi-collection mr-2" />
             Twoje filmy
         </a>
