@@ -24,10 +24,20 @@
         invalidate('user:owned');
     }
 
+    const test = async () => {
+        const res = await fetch('/api/movies/125/download', {
+            method: 'GET',
+            headers: getAuthHeaders()
+        });
+        console.log(res);
+        return;
+    }
+
     const downloadMovie = async (movie: ApiMovie) => {
-        const url = `/api/jd/${movie.id}/downloadesaease`;
+
+        const url = `/api/movies/${movie.id}/download`;
         const res = await fetch(url, getAuthOptions());
-        console.log('r', res);
+        console.log('response', res);
         if(!res.ok) {
             alert('Błąd pobierania filmu');
             console.log(res);

@@ -1,14 +1,11 @@
 import { loggedUser } from '@/stores';
-import { redirect } from '@sveltejs/kit';
+import { redirectTo } from '@/utils';
 import type { PageLoad } from './$types';
 
 
 export const load = (() => {
     loggedUser.subscribe(user => {
-        if(!user) {
-            console.log('!user');
-            throw redirect(302, '/');
-        }
+        if(!user) redirectTo('/');
     })
 
 	return { };

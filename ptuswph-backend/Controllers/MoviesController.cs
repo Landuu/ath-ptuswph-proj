@@ -88,7 +88,7 @@ namespace ptuswph_backend.Controllers
 
         [Authorize]
         [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-        [HttpGet("{id}/Downloade")]
+        [HttpGet("{id}/Download")]
         public async Task<IResult> Download(int id)
         {
             var movie = await _context.Movies.FindAsync(id);

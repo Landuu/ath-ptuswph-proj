@@ -1,3 +1,6 @@
+import { browser } from '$app/environment';
+import { goto } from '$app/navigation';
+import { redirect } from '@sveltejs/kit';
 import store from 'store2';
 import { loggedUserBalance } from './stores';
 import type { LoggedUser } from './types';
@@ -29,4 +32,14 @@ export const refreshBalance = async () => {
 	const balance = await res.text();
 	const balanceNumber = Number(balance.replace(',', '.'));
 	loggedUserBalance.set(balanceNumber);
+}
+
+export const redirectTo = (loc: string, cond?: boolean) => {
+	if(cond == false) return;
+	if(browser) goto(loc);
+	else throw redirect(302, loc);
+}
+
+export const getSessionUser = () => {
+	return store.session.get('loggedUser');
 }

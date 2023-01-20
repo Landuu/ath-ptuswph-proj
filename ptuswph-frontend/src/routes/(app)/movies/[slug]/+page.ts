@@ -1,4 +1,4 @@
-import { loggedUser, loggedUserBalance } from "@/stores";
+import { loggedUser } from "@/stores";
 import { getAuthOptions } from "@/utils";
 import { error } from "@sveltejs/kit";
 import type { PageLoad } from "./$types";

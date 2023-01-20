@@ -4,6 +4,7 @@ import { loggedUser, loggedUserBalance } from "@/stores";
 import { getAuthOptions, refreshBalance } from "@/utils";
 import type { PageLoad } from './$types';
 
+export const ssr = false;
 
 export const load: any = (async ({fetch, depends}) => {
 	depends('user:wallet');

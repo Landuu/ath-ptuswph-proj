@@ -63,7 +63,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.UseStaticFiles();
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("{*path:regex(^(?!api).*$)}", "index.html");
 
 
 // SEEDING
