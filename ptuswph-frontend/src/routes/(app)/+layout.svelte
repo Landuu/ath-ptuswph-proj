@@ -14,7 +14,7 @@
     <div class="navbar">
         <div class="flex items-center">
             <a href="/" class="home-button">
-                <Icon className="bi-house" />
+                <Icon className="bi-house-fill" />
             </a>
             <div class="text-2xl font-bold text-indigo-400">
                 FILMEX
@@ -26,6 +26,9 @@
                     <UserNav />
                 </div>
             {:else}
+                <a class="action-button mr-5" href="/register">
+                    Rejestracja
+                </a>
                 <button class="action-button" on:click={showLogin}>
                     Zaloguj się
                 </button>

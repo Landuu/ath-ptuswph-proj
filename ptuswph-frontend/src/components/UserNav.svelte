@@ -7,10 +7,10 @@
     let userDropdown = false;
 
     const closeOutside = (e: any) => {
-        if(walletDropdown && !e.target.matches('#wallet-drop'))
+        if(walletDropdown && !e.target.matches('#wallet-drop') && !e.target.matches('.bi'))
             walletDropdown = !walletDropdown;
 
-        if(userDropdown && !e.target.matches('#user-drop'))
+        if(userDropdown && !e.target.matches('#user-drop')  && !e.target.matches('.bi'))
             userDropdown = !userDropdown;
     }
     
@@ -23,7 +23,7 @@
 <svelte:window on:click={(e) => closeOutside(e)} />
 <div>
     <button id="wallet-drop" class="user-button mr-1" on:click={() => walletDropdown = !walletDropdown}>
-        <Icon className="bi-wallet2 mr-1" />
+        <Icon className="bi-wallet2 mr-1 pointer-events-auto" />
         {$loggedUserBalance?.toFixed(2)} zł
     </button>
     <div class="dropdown-content {walletDropdown ? "show" : ""}">

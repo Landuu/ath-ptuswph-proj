@@ -34,17 +34,14 @@
     }
 
     const downloadMovie = async (movie: ApiMovie) => {
-
         const url = `/api/movies/${movie.id}/download`;
         const res = await fetch(url, getAuthOptions());
-        console.log('response', res);
         if(!res.ok) {
             alert('Błąd pobierania filmu');
-            console.log(res);
             return;
         }
         const file = await res.blob();
-        const fileName = movie.title + '123.jpg';
+        const fileName = movie.title + '.jpg';
         saveAs(file, fileName);
     }
 </script>
