@@ -25,25 +25,7 @@ namespace ptuswph_backend.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<IResult> Get()
-        {
-            var users = await _context.Users.ToListAsync();
-            return Results.Json(users);
-        }
 
-        [HttpPost]
-        public async Task<IResult> Post(string login, string password)
-        {
-            var user = new User()
-            {
-                Login = login,
-                Password = password
-            };
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return Results.Ok();
-        }
 
         [Authorize]
         [HttpGet("Wallet")]
@@ -119,6 +101,7 @@ namespace ptuswph_backend.Controllers
 
             return Results.Json(userMovies);
         }
+
 
         [Authorize]
         [HttpDelete("Movies/Reset")]
