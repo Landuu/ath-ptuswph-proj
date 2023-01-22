@@ -3,6 +3,7 @@ ptuswph-backend/wwwroot
 ptuswph-backend/Database/SQLite.db
 ptuswph-backend/Database/SQLite.db-shm
 ptuswph-backend/Database/SQLite.db-wal
+ptuswph
 
 
 ## Ignore Visual Studio temporary files, build results, and
