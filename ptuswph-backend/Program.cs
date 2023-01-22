@@ -8,6 +8,8 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.UseUrls("http://localhost:80");
+
 // Settings
 var jwtSettings = builder.Configuration.GetSection("JWT").Get<JWTSettings>() ?? new();
 
@@ -58,12 +60,24 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
 app.UseStaticFiles();
-app.MapFallbackToFile("{*path:regex(^(?!api).*$)}", "index.html");
+app.MapControllers();
+app.UseRouting();
+
+app.UseAuthentication();
+#pragma warning disable ASP0001
+app.UseAuthorization();
+#pragma warning restore ASP0001
+
+app.MapWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"), index =>
+{
+    index.UseRouting();
+    index.UseEndpoints(endpoints =>
+    {
+        endpoints.MapFallbackToFile("index.html");
+    });
+});
+
 
 
 // SEEDING
