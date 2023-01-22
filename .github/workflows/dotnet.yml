@@ -42,7 +42,7 @@ jobs:
       
     - name: Publish
       working-directory: ./ptuswph-backend
-      run: dotnet publish -p:PublishProfile=FolderProfile --no-restore
+      run: dotnet publish -c Release -o ../ptuswph --no-restore
       
     - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
