@@ -110,6 +110,7 @@ if(!context.Users.Any())
         foreach (var user in users)
         {
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            user.Wallet = 0M;
         }
         context.Users.AddRange(users);
         context.SaveChanges();
