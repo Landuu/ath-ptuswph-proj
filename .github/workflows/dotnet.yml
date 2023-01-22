@@ -35,6 +35,7 @@ jobs:
     - name: Migrate
       run: |
         cd ptuswph-backend
+        dotnet tool install --global dotnet-ef
         dotnet ef database update
     - name: Build
       run: |
