@@ -40,13 +40,9 @@ jobs:
       working-directory: ./ptuswph-backend
       run: dotnet ef database update
       
-    - name: Show wwwroot
+    - name: Publish
       working-directory: ./ptuswph-backend
-      run: ls ./wwwroot
-      
-    - name: Build
-      working-directory: ./ptuswph-backend
-      run: dotnet build --no-restore --configuration Release --output ../ptuswph
+      run: dotnet publish -p:PublishProfile=FolderProfile --no-restore
       
     - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
@@ -55,8 +51,8 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
-        source: "./ptuswph"
-        target: "/root/apps"
+        source: "./ptuswph-backend/bin/publish"
+        target: "/root/ptuswph"
         rm: true
 
 
