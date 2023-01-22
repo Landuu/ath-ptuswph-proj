@@ -40,6 +40,10 @@ jobs:
       working-directory: ./ptuswph-backend
       run: dotnet ef database update
       
+    - name: Show wwwroot
+      working-directory: ./ptuswph-backend
+      run: ls ./wwwroot
+      
     - name: Build
       working-directory: ./ptuswph-backend
       run: dotnet build --no-restore --configuration Release --output ../ptuswph
