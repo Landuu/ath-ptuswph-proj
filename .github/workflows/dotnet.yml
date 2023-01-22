@@ -51,8 +51,8 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
-        source: "./ptuswph-backend/bin/publish"
-        target: "/root/ptuswph"
+        source: "./ptuswph"
+        target: "/root/apps"
         rm: true
 
 
