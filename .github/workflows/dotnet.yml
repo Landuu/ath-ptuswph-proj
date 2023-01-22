@@ -44,6 +44,15 @@ jobs:
       working-directory: ./ptuswph-backend
       run: dotnet publish -c Release -o ../ptuswph --no-restore
       
+    - name: Stop Kestrel service
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: systemctl stop kestrel-ptuswph.service
+
     - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
       with:
@@ -54,5 +63,14 @@ jobs:
         source: "./ptuswph"
         target: "/root/apps"
         rm: true
+        
+    - name: Star Kestrel service
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: systemctl start kestrel-ptuswph.service
 
 
