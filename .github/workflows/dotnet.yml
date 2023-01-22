@@ -42,16 +42,17 @@ jobs:
       
     - name: Build
       working-directory: ./ptuswph-backend
-      run: dotnet build --no-restore --configuration Release --output ../app
+      run: dotnet build --no-restore --configuration Release --output ../ptuswph
       
-    - name: SCP Command to Transfer Files
+    - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
       with:
         host: ${{ secrets.VPS_HOST }}
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
-        source: "./app"
+        source: "./ptuswph"
         target: "/root/ptuswph"
+        rm: true
 
 
