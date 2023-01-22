@@ -49,7 +49,7 @@ jobs:
       run: dotnet build --no-restore --configuration Release --output ../app
       
     - name: Check migrate2
-      working-directory: ./ptuswph-backend/Database
+      working-directory: ./app/Database/SQLite.db
       run: du SQLite.db
       
     - name: SCP Command to Transfer Files
