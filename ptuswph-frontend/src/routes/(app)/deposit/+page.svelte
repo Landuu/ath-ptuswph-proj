@@ -31,7 +31,7 @@
             invalidate('user:wallet');
             loading = false;
             location.href = '/';
-        }, 1500);
+        }, 500);
     }
 </script>
 

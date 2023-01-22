@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { goto, invalidate } from "$app/navigation";
     import { loggedUser } from "@/stores";
     import type { LoggedUser } from "@/types";
     import { getAuthToken } from "@/utils";
@@ -36,7 +37,8 @@
         const user: LoggedUser = await res.json();
         loggedUser.set(user);
         store.session.set('loggedUser', user);
-        //invalidate('user:wallet')
+        invalidate('user:wallet');
+        invalidate('register');
     }
 </script>
 

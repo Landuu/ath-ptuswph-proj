@@ -64,7 +64,7 @@ jobs:
         target: "/root/apps"
         rm: true
         
-    - name: Star Kestrel service
+    - name: Start Kestrel service
       uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.VPS_HOST }}

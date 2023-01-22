@@ -40,6 +40,7 @@
         store.session.set('loggedUser', userdata);
         loggedUser.set(userdata);
         invalidate('user:wallet');
+        invalidate('register');
         closeModal();
     }
 </script>
