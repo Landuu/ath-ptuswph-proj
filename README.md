@@ -15,6 +15,7 @@
   npm run dev
   
   // Backend
-  dotnet watch / Visual Studio kestrel
+  update database
+  dotnet watch lub Visual Studio Kestrel
 ```
 
