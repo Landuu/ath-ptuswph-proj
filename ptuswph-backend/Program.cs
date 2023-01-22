@@ -8,11 +8,6 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-if(builder.Environment.IsProduction()) {
-    builder.WebHost.UseUrls("http://167.172.186.102:80");
-}
-
-
 // Settings
 var jwtSettings = builder.Configuration.GetSection("JWT").Get<JWTSettings>() ?? new();
 
