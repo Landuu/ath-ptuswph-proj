@@ -25,19 +25,25 @@ jobs:
         cd ptuswph-frontend
         npm ci
     - name: Build frontend
-      run: npm run build
+      run: |
+        cd ptuswph-frontend
+        npm run build
     - name: Restore backend dependencies
       run: |
-        cd ../ptuswph-backend
+        cd ptuswph-backend
         dotnet restore
     - name: Migrate
-      run: dotnet ef database update
+      run: |
+        cd ptuswph-backend
+        dotnet ef database update
     - name: Build
-      run: dotnet build --no-restore
+      run: |
+        cd ptuswph-backend
+        dotnet build --no-restore
     - name: Check back
-      run: ls
+      run: ls ./ptuswph-backend
     - name: Check wwwroot
-      run: ls ./wwwroot
+      run: ls ./ptuswph-backend/wwwroot
     - name: Check database
-      run: ls ./Database
+      run: ls ./ptuswph-backend/Database
 
