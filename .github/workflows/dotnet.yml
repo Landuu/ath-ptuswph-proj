@@ -39,18 +39,10 @@ jobs:
     - name: Migrate
       working-directory: ./ptuswph-backend
       run: dotnet ef database update
-    
-    - name: Check migrate
-      working-directory: ./ptuswph-backend/Database
-      run: du SQLite.db
       
     - name: Build
       working-directory: ./ptuswph-backend
       run: dotnet build --no-restore --configuration Release --output ../app
-      
-    - name: Check migrate2
-      working-directory: ./app/Database/SQLite.db
-      run: du SQLite.db
       
     - name: SCP Command to Transfer Files
       uses: appleboy/scp-action@v0.1.3
