@@ -15,7 +15,7 @@
   npm run dev
   
   // Backend
-  update database
+  update database (Package Manager Console) lub dotnet ef database update
   dotnet watch lub Visual Studio Kestrel
 ```
 
