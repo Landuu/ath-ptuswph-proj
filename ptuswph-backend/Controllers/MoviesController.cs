@@ -100,7 +100,7 @@ namespace ptuswph_backend.Controllers
             bool isOwned = await _context.UserMovies.AnyAsync(x => x.UserId == user.Id && x.MovieId == movie.Id);
             if (!isOwned) return Results.BadRequest();
 
-            string path = _environment.ContentRootPath + $"/Database/Movies/{movie.Img}";
+            string path = _environment.ContentRootPath + $"/Database/movies/{movie.Img}";
             bool isFile = System.IO.File.Exists(path);
             if(!isFile) return Results.BadRequest();
 
