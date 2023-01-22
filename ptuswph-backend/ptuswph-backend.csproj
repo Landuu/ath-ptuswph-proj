@@ -21,4 +21,100 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database\movies\1MEzhcjbrDpb2GMGY5dhHWCVcTa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\58D6muzcoc5JvFoVJvCyEafAiw0.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\6Mxr0C658nYgO0fQNzHUXudQ2FI.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\75KNIheWdy7eLe4RWsbJmVjvJPU.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\7IiTTgloJzvGI1TAYymCfbfl3vT.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\Ajs7ZyNjGMHIiATMygxMkOFeTko.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\aQFY7SsIHKXW86aaQMQKgJMgA1e.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\Cw4pNKRRDCd5StFsI8DQE6rQ4y.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\dz6TAyMGmRPOIR9qcOjm0Hl1VTH.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\eCdZttdPbigCFCBssFRjqZ23CjJ.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\g2f8m17kW6zvj4x8Pqa58OoaIqR.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\gh4cZbhZxyTbgxQPxD0dOudNPTn.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\gKMDmGde8aAD8M6dvm6j7wciSbJ.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\gm32KhemALUXCxz2XZTDka0X46k.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\grWtpyxmIVv5HY0ZXt233OrbHW.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\iixrNXX79OR7knBx1i9S51PfVlz.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\lRzXVktAIzOh509zALQf1Zhhsh8.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\lS36LUt57aORTBAeGdQICHtu9he.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\mFeZBqgKQqTuk2R67IfmfQP62nj.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\mvM5hv6JaHnBNU9WQ9cxvEoU2K2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\nml7EGnUFNYeWyZtGDQfyrS5xjB.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\o04jZs5SXhbvhqO4981W7KJXOWZ.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\oWZLnt39ap5yJcBcAXRBCfGlhWM.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\r6gu7mXTRwPoLqpw8Xz9IOVpXJy.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\rrdlBn5la8NlzA54bbOz11kMx3R.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\sBnhJ4f5KAzg6C3FwnEb8QFj8SB.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\sWQjhhK9AidSLExyn7M26Tz4V6U.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\tVxDe01Zy3kZqaZRNiXFGDICdZk.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\XZSwbwgXNopcxIfHlwlFH4vSPG.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\movies\yS3EVRQdmTH2bPQxhE13sUluvxq.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Database\SQLite.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
