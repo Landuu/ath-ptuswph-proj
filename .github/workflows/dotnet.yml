@@ -39,6 +39,10 @@ jobs:
     - name: Migrate
       working-directory: ./ptuswph-backend
       run: dotnet ef database update
+    
+    - name: Check migrate
+      working-directory: ./ptuswph-backend/Database
+      run: ll
       
     - name: Build
       working-directory: ./ptuswph-backend
