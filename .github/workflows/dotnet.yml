@@ -42,7 +42,7 @@ jobs:
       
     - name: Publish
       working-directory: ./ptuswph-backend
-      run: dotnet publish -c Release -o ../ptuswph --no-restore
+      run: dotnet publish -p:Publish --no-restore
       
     - name: Stop Kestrel service
       uses: appleboy/ssh-action@v0.1.7
