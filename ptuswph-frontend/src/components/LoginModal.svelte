@@ -11,62 +11,72 @@
 
     const closeModal = () => {
         showLoginModal.set(false);
-    }
+    };
 
-    const sendCredentials = async () => {
-        if(!inputLogin || !inputPassword) return;
+    const sendCredentials = async (e: any) => {
+        e.preventDefault();
+        
+        if (!inputLogin || !inputPassword) return;
         inputLogin = inputLogin.trim();
         inputPassword = inputPassword.trim();
-        if(inputLogin.length == 0 || inputPassword.length == 0) return;
+        if (inputLogin.length == 0 || inputPassword.length == 0) return;
 
         const payload = {
             Login: inputLogin,
-            Password: inputPassword
+            Password: inputPassword,
         };
-        const res = await fetch('/api/auth', {
-            method: 'POST',
+        const res = await fetch("/api/auth", {
+            method: "POST",
             headers: {
-                'Authorization': getAuthToken(),
-                'Content-Type': 'application/json'
+                Authorization: getAuthToken(),
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         });
-        if(res.status != 200) {
+        if (res.status != 200) {
             alert("Nieprawidłowy login lub hasło!");
             return;
         }
 
         const userdata: LoggedUser = await res.json();
-        store.session.set('loggedUser', userdata);
+        store.session.set("loggedUser", userdata);
         loggedUser.set(userdata);
-        invalidate('user:wallet');
-        invalidate('register');
+        invalidate("user:wallet");
+        invalidate("register");
         closeModal();
-    }
+    };
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="backdrop" on:click={closeModal}></div>
+<div class="backdrop" on:click={closeModal} />
 <div class="modal">
     <div class="flex justify-between text-lg select-none">
         <div class="py-2">LOGOWANIE</div>
-        <button class="px-3 py-1 hover:cursor-pointer flex items-center" on:click={closeModal}>
+        <button
+            class="px-3 py-1 hover:cursor-pointer flex items-center"
+            on:click={closeModal}
+        >
             X
         </button>
     </div>
     <div class="mt-6 mb-2 form">
-        <label for="modal-login">Login</label>
-        <input class="mb-4" id="modal-login" bind:value={inputLogin} />
+        <form on:submit={sendCredentials}>
+            <label for="modal-login">Login</label>
+            <input class="mb-4" id="modal-login" bind:value={inputLogin} />
 
-        <label for="modal-password">Hasło</label>
-        <input id="modal-password" type="password" bind:value={inputPassword} />
+            <label for="modal-password">Hasło</label>
+            <input
+                id="modal-password"
+                type="password"
+                bind:value={inputPassword}
+            />
 
-        <div class="w-full flex justify-center mt-8">
-            <button class="login-button" on:click={sendCredentials}>Zaloguj</button>
-        </div>
+            <div class="w-full flex justify-center mt-8">
+                <button class="login-button">Zaloguj</button>
+            </div>
+        </form>
     </div>
 </div>
-
 
 <style lang="postcss">
     .backdrop {
@@ -80,11 +90,11 @@
         transform: translate(-50%, -50%);
     }
 
-    .form > input {
+    .form input {
         @apply w-full bg-gray-700 p-2;
     }
 
-    .form > label {
+    .form label {
         @apply text-gray-300 select-none;
     }
 
