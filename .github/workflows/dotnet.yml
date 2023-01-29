@@ -44,14 +44,14 @@ jobs:
       working-directory: ./ptuswph-backend
       run: dotnet publish -p:PublishProfile=FolderProfile --no-restore
       
-#    - name: Stop Kestrel service
-#      uses: appleboy/ssh-action@v0.1.7
-#      with:
-#        host: ${{ secrets.VPS_HOST }}
-#        username: ${{ secrets.VPS_USER }}
-#        password: ${{ secrets.VPS_PASSWORD }}
-#        port: ${{ secrets.VPS_PORT }}
-#        script: sudo systemctl stop kestrel-ptuswph.service
+    - name: Stop Kestrel service
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.VPS_HOST }}
+        username: ${{ secrets.VPS_USER }}
+        password: ${{ secrets.VPS_PASSWORD }}
+        port: ${{ secrets.VPS_PORT }}
+        script: sudo systemctl stop kestrel-ptuswph.service
 
     - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
