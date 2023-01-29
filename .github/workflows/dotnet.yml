@@ -51,7 +51,7 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
-        script: systemctl stop kestrel-ptuswph.service
+        script: sudo systemctl stop kestrel-ptuswph.service
 
     - name: Transfer files to VPS (SCP)
       uses: appleboy/scp-action@v0.1.3
@@ -71,6 +71,6 @@ jobs:
         username: ${{ secrets.VPS_USER }}
         password: ${{ secrets.VPS_PASSWORD }}
         port: ${{ secrets.VPS_PORT }}
-        script: systemctl start kestrel-ptuswph.service
+        script: sudo systemctl start kestrel-ptuswph.service
 
 
