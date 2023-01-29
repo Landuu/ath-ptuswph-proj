@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 if(builder.Environment.IsProduction())
 {
-    builder.WebHost.UseUrls("http://51.124.105.143:80");
+    builder.WebHost.UseUrls("http://10.0.0.4:80");
 }
 
 // Settings
