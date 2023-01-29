@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 if(builder.Environment.IsProduction())
 {
-    builder.WebHost.UseUrls("http://localhost:80", "http://167.172.186.102:80");
+    builder.WebHost.UseUrls("http://localhost:80", "http://51.124.105.143:80");
 }
 
 // Settings
@@ -34,7 +34,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new() { Title = "Wypo¿yczalnia filmów", Version= "v1" });
+    options.SwaggerDoc("v1", new() { Title = "WypoÂ¿yczalnia filmÃ³w", Version= "v1" });
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         In = ParameterLocation.Header,
